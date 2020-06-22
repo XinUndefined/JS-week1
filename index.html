@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="all.css" />
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app" class="list container my-3">
+      <h1 class="text-center">Todo List</h1>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-info"
+            ><span class="material-icons text-white">
+              assignment
+            </span></span
+          >
+        </div>
+        <input type="text" class="form-control" id="newTodo" />
+        <div class="input-group-append">
+          <button class="btn btn-info d-flex" type="button" id="addTodo">
+            <span class="material-icons">
+              add_circle
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="card text-center bg-info border-0">
+        <ul class="list-group list-group-flush text-left" id="todoList"></ul>
+        <div class="card-footer d-flex justify-content-between py-2 px-3">
+          <div class="d-flex">
+            <span id="taskCount" class="text-white">1</span
+            ><span class="material-icons text-white">
+              view_list
+            </span>
+          </div>
+          <a href="#" id="clearTask"
+            ><span class="material-icons text-white">
+              delete_forever
+            </span></a
+          >
+        </div>
+      </div>
+    </div>
+    <script src="all.js"></script>
+  </body>
+</html>

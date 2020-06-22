@@ -1,0 +1,22 @@
+.completed {
+  text-decoration: line-through;
+}
+h1 {
+  font-family: "Sriracha", cursive;
+}
+.list {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  right: 0;
+}
+@media screen and (min-width: 992px) {
+  .list {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .list {
+    width: 30%;
+  }
+}
