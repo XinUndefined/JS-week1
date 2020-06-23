@@ -4,63 +4,68 @@ let addBtn = document.getElementById("addTodo");
 let clearAllBtn = document.getElementById("clearTask");
 let todoList = document.getElementById("todoList");
 let countTodo = document.getElementById("taskCount");
+let todoData = JSON.parse(localStorage.getItem("listData")) || [];
 
 //監聽
-// todoInput.addEventListener("keydown", addTodo);
 addBtn.addEventListener("click", addTodo);
+todoInput.addEventListener("keydown", addTodo);
 clearAllBtn.addEventListener("click", clearAllTask);
 todoList.addEventListener("click", doSomething);
 
-var todoData = [];
-renderPage(todoData);
+// 初始
+window.onload = renderPage();
 
 //新增
-function addTodo() {
-  var newTodo = todoInput.value.trim();
-  var timeStamp = Math.floor(Date.now());
-  if (newTodo !== "") {
-    todoData.push({
-      id: timeStamp,
-      title: newTodo,
-      completed: false,
-    });
-    renderPage(todoData);
-    todoInput.value = "";
+function addTodo(e) {
+  if (e.keyCode == 13 || e.type == "click") {
+    if (todoInput.value.trim() !== "") {
+      todoData.push({
+        id: Math.floor(Date.now()),
+        title: todoInput.value.trim(),
+        completed: false,
+      });
+      localStorage.setItem("listData", JSON.stringify(todoData));
+      renderPage();
+      todoInput.value = "";
+    }
   }
 }
 
 // 刪除一筆
 function removeTodo(id) {
-  var newIndex = 0;
+  let newIndex = 0;
   todoData.forEach((item, key) => {
     if (id == item.id) {
       newIndex = key;
     }
   });
   todoData.splice(newIndex, 1);
-  renderPage(todoData);
+  localStorage.setItem("listData", JSON.stringify(todoData));
+  renderPage();
 }
 
-// 項目切換
+// 項目勾選
 function completeTodo(id) {
   todoData.forEach((item) => {
     if (id == item.id) {
       item.completed = item.completed ? false : true;
     }
   });
-  renderPage(todoData);
+  localStorage.setItem("listData", JSON.stringify(todoData));
+  renderPage();
 }
 
 // 刪除全部
 function clearAllTask(e) {
   e.preventDefault();
   todoData = [];
-  renderPage(todoData);
+  localStorage.clear();
+  renderPage();
 }
 
 function doSomething(e) {
-  var action = e.target.parentNode.dataset.action;
-  var id = e.target.parentNode.dataset.id;
+  let action = e.target.parentNode.dataset.action;
+  let id = e.target.parentNode.dataset.id;
   if (action == "remove") {
     removeTodo(id);
   } else if (action === "complete") {
@@ -69,9 +74,9 @@ function doSomething(e) {
 }
 
 // 畫面
-function renderPage(data) {
-  var str = "";
-  data.forEach((item) => {
+function renderPage() {
+  let str = "";
+  todoData.forEach((item) => {
     str += `<li class="list-group-item">
 <div class="d-flex">
 <div class="form-check" data-action="complete" data-id="${item.id}">
@@ -91,5 +96,5 @@ function renderPage(data) {
 </li>`;
   });
   todoList.innerHTML = str;
-  countTodo.textContent = data.length;
+  countTodo.textContent = todoData.length;
 }
